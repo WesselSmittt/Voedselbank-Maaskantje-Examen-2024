@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'directie'])->group(function () {
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leverancier.index');
     Route::get('/leveranciers/{id}', [LeverancierController::class, 'show'])->name('leverancier.show');
     Route::get('/leveranciers/{id}/edit', [LeverancierController::class, 'edit'])->name('leverancier.edit');
