@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsDirectie
+class IsMedewerker
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,11 @@ class IsDirectie
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role_id == 3) {
+        if (Auth::check() && Auth::user()->role_id == 2) {
             return $next($request);
         }
 
         // Redirect gebruikers die geen 'leverancier' rol hebben, pas dit aan naar je voorkeur
-        return redirect('home')->with('error', 'Je hebt geen toegang tot deze pagina.');
+        return redirect('/dashboard')->with('error', 'Je hebt geen toegang tot deze pagina.');
     }
 }
