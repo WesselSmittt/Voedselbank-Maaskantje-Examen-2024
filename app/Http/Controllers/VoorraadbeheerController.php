@@ -105,6 +105,9 @@ class VoorraadbeheerController extends Controller
         $request->validate([
             'product_naam' => 'required|string|max:255',
             'hoeveelheid' => 'required|numeric',
+            'categorie_id' => 'required|exists:categories,categorie_id',
+            'leverancier_id' => 'required|exists:leveranciers,leverancier_id',
+            'klant_id' => 'required|exists:klanten,klant_id',
         ]);
 
         try {
@@ -112,6 +115,9 @@ class VoorraadbeheerController extends Controller
             $voorraad->update([
                 'product_naam' => $request->input('product_naam'),
                 'hoeveelheid' => $request->input('hoeveelheid'),
+                'categorie_id' => $request->input('categorie_id'),
+                'leverancier_id' => $request->input('leverancier_id'),
+                'klant_id' => $request->input('klant_id'),
             ]);
 
             // Redirect naar de index pagina met een succesmelding
@@ -123,21 +129,6 @@ class VoorraadbeheerController extends Controller
             Log::error('Voorraad data: ' . json_encode($voorraad->toArray()));
 
             return back()->withErrors('Er is een fout opgetreden bij het bijwerken van het voorraadartikel.');
-        }
-    }
-
-    // Verwijdert een specifiek voorraadartikel uit de database
-    public function destroy(Voorraad $voorraad)
-    {
-        try {
-            // Verwijdert het voorraadartikel
-            $voorraad->delete();
-            // Redirect naar de index pagina met een succesmelding
-            return redirect()->route('voorraadbeheer.index')->with('success', 'Voorraadartikel succesvol verwijderd.');
-        } catch (\Exception $e) {
-            // Logt de fout en geeft een foutmelding terug
-            Log::error('Fout bij het verwijderen van voorraadartikel: ' . $e->getMessage());
-            return back()->withErrors('Er is een fout opgetreden bij het verwijderen van het voorraadartikel.');
         }
     }
 }
