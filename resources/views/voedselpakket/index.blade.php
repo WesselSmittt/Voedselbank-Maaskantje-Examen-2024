@@ -56,7 +56,7 @@
     </div>
     
 
-    <h1>Voedselpakketten Overzicht</h1>
+    <h1>Klanten Overzicht</h1>
 
     <table class="table">
         <thead>
