@@ -59,20 +59,11 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="klant_id" class="block text-sm font-medium text-gray-700">Klant</label>
-                            <select name="klant_id" id="klant_id" class="mt-1 block w-full" required>
-                                @foreach($klanten as $klant)
-                                <option value="{{ $klant->klant_id }}">{{ $klant->voornaam }} {{ $klant->achternaam }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
                             <label for="ean" class="block text-sm font-medium text-gray-700">EAN</label>
                             <div class="flex">
                                 <input type="text" name="ean" id="ean" class="mt-1 block w-full" value="{{ old('ean') }}" readonly>
                                 <button type="button" class="ml-2 px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" onclick="generateEAN()">
-                                    {{ __('Generate EAN') }}
+                                    {{ __('Generate') }}
                                 </button>
                             </div>
                         </div>
