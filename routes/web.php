@@ -28,6 +28,7 @@ Route::get('/voedselpakketten', [VoedselPakketController::class, 'index'])->name
 
 // Route voor het weergeven van het formulier om een nieuw voedselpakket aan te maken
 Route::get('/voedselpakketten/create', [VoedselPakketController::class, 'create'])->name('voedselpakket.create');
+Route::post('/voedselpakket/create', [VoedselPakketController::class, 'create'])->name('voedselpakket.create.post');
 
 // Route voor het opslaan van een nieuw voedselpakket
 Route::post('/voedselpakketten', [VoedselPakketController::class, 'store'])->name('voedselpakket.store');

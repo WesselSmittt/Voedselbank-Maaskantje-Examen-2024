@@ -5,6 +5,7 @@
     <style>
         .button-container {
             margin-bottom: 20px;
+            padding-top: 10px;
         }
         .search-bar {
             margin-bottom: 20px;
@@ -49,9 +50,11 @@
     <div class="search-bar">
         <form action="{{ route('voedselpakket.search') }}" method="GET">
             <input type="text" name="search" placeholder="Zoek op klantnaam...">
-            <button type="submit">Zoek</button>
+            <button type="submit"> Zoek</button>
         </form>
+        <p><a href="{{ route('voedselpakket.index') }}"><button>Terug</button></a></p>
     </div>
+    
 
     <h1>Voedselpakketten Overzicht</h1>
 

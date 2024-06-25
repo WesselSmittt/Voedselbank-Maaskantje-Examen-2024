@@ -17,12 +17,17 @@ class VoedselPakketController extends Controller
     }
 
     // Weergave van het formulier om een nieuw voedselpakket aan te maken
-    public function create()
+    public function create(Request $request)
     {
         $klanten = Klant::all(); // Fetch all klanten from the database
         $products = Product::all(); // Fetch all products from the database
+        $selectedKlant = null;
 
-        return view('voedselpakket.create', compact('klanten', 'products'));;
+        if ($request->isMethod('post')) {
+            $selectedKlant = Klant::find($request->input('klant_id'));
+        }    
+
+        return view('voedselpakket.create', compact('klanten', 'products', 'selectedKlant'));;
     }
 
     // Opslaan van een nieuw voedselpakket
@@ -36,6 +41,7 @@ class VoedselPakketController extends Controller
         ]);
 
         // Create voedsel_pakket
+
         VoedselPakket::create($validatedData);
 
         return redirect()->route('voedselpakket.index')->with('success', 'Voedsel pakket successfully created.');
