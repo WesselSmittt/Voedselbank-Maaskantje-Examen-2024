@@ -10,56 +10,38 @@ class LeverancierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+     public function index()
+     {
+         $leveranciers = Leverancier::all(); // Haalt alle leveranciers op uit de database
+     
+         return view('leverancier.index', compact('leveranciers')); // Stuurt de data naar de view
+     }
+
+    public function show($id)
     {
-        return view('leverancier.index');
+        $leverancier = Leverancier::findOrFail($id);
+        return view('leverancier.show', compact('leverancier'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function edit($id)
     {
-        //
+        $leverancier = Leverancier::findOrFail($id);
+        return view('leverancier.edit', compact('leverancier'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+        $leverancier = Leverancier::findOrFail($id);
+        $leverancier->update($request->all());
+        return redirect()->route('leverancier.show', $leverancier->id);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Leverancier $leverancier)
+    public function destroy($id)
     {
-        //
+        $leverancier = Leverancier::findOrFail($id);
+        $leverancier->delete();
+        return redirect()->route('leverancier.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Leverancier $leverancier)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Leverancier $leverancier)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Leverancier $leverancier)
-    {
-        //
-    }
 }

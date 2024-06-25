@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('leveranciers', function (Blueprint $table) {
-            $table->id('leverancier_id');
+            $table->id('id');
             $table->string('bedrijfsnaam', 100);
             $table->string('straatnaam')->nullable();
             $table->string('huisnummer')->nullable();
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('email', 100)->nullable();
             $table->string('telefoon', 20)->nullable();
             $table->date('volgende_levering')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

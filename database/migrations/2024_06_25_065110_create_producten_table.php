@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ean', 13)->unique();
             $table->integer('hoeveelheid')->default(0);
             $table->unsignedBigInteger('leverancier_id')->nullable();
-            $table->foreign('leverancier_id')->references('leverancier_id')->on('leveranciers');
+            $table->foreign('leverancier_id')->references('id')->on('leveranciers');
             $table->unsignedBigInteger('klant_id')->nullable();
             $table->foreign('klant_id')->references('klant_id')->on('klanten');
         });

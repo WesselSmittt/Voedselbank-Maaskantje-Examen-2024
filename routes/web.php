@@ -20,6 +20,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leverancier.index');
+    Route::get('/leveranciers/{id}', [LeverancierController::class, 'show'])->name('leverancier.show');
+    Route::get('/leveranciers/{id}/edit', [LeverancierController::class, 'edit'])->name('leverancier.edit');
+    Route::put('/leveranciers/{id}', [LeverancierController::class, 'update'])->name('leverancier.update');
+    Route::delete('/leveranciers/{id}', [LeverancierController::class, 'destroy'])->name('leverancier.destroy');
 });
 
 require __DIR__.'/auth.php';
