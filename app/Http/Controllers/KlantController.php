@@ -12,15 +12,15 @@ class KlantController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $klanten = Klant::all();
+        return view('klant.klantoverzicht', compact('klanten'));    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('klant.klanttoevoegen');
     }
 
     /**
@@ -28,7 +28,19 @@ class KlantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $klant = new Klant();
+        $klant->voornaam = $request->voornaam;
+        $klant->achternaam = $request->achternaam;
+        $klant->adres = $request->adres;
+        $klant->telefoon = $request->telefoon;
+        $klant->email = $request->email;
+        $klant->volwassenen = $request->volwassenen;
+        $klant->kinderen = $request->kinderen;
+        $klant->babys = $request->babys;
+        $klant->save();
+    
+        // Redirect naar de klantoverzicht view na het opslaan
+        return redirect()->route('klantoverzicht');
     }
 
     /**
@@ -42,23 +54,69 @@ class KlantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Klant $klant)
+    public function edit($klant_id)
     {
-        //
+        $klant = Klant::find($klant_id);
+        return view('klant.klantedit', compact('klant'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Klant $klant)
+    public function update(Request $request, $klant_id)
     {
-        //
-    }
+        $request->validate([
+            'voornaam' => 'required',
+            'achternaam' => 'required',
+            'adres' => 'required',
+            'telefoon' => 'required',
+            'email' => 'required|email',
+            'volwassenen' => 'required|integer',
+            'kinderen' => 'required|integer',
+            'babys' => 'required|integer',
+        ]);
+        
+        $klant = Klant::find($klant_id);
+        $klant->voornaam = $request->voornaam;
+        $klant->achternaam = $request->achternaam;
+        $klant->adres = $request->adres;
+        $klant->telefoon = $request->telefoon;
+        $klant->email = $request->email;
+        $klant->volwassenen = $request->volwassenen;
+        $klant->kinderen = $request->kinderen;
+        $klant->babys = $request->babys;
+    
+        $klant->save();
+    
+        return redirect()->route('klantoverzicht')->with('success', 'Klant succesvol bijgewerkt.');
+        }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Klant $klant)
+    public function blokkeren(Request $request, $klant_id)
+    {
+        $klant = Klant::findOrFail($klant_id);
+        // Implement your blocking logic here
+        // For example, setting a 'blocked' attribute to true
+        $klant->blocked = true;
+        $klant->save();
+
+        return redirect()->route('klantoverzicht')->with('success', 'Klant succesvol geblokkeerd.');
+    }
+
+    public function herstellen($klant_id)
+    {
+        $klant = Klant::findOrFail($klant_id);
+        // Implementeer je deblokkeer logica hier
+        // Bijvoorbeeld, het instellen van een 'blocked' attribuut naar false
+        $klant->blocked = false;
+        $klant->save();
+
+        return redirect()->route('klantoverzicht')->with('success', 'Klant succesvol hersteld.');
+    }
+    
+     public function destroy(Klant $klant)
     {
         //
     }
