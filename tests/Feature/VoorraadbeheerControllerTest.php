@@ -2,56 +2,51 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Voorraad;
 use App\Models\Categorie;
 use App\Models\Leverancier;
 use App\Models\Klant;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class VoorraadbeheerControllerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    /**
-     * Test updating an existing inventory item.
-     *
-     * @return void
-     */
-    public function test_update_voorraad()
+    /** @test */
+    public function it_can_create_a_voorraad_item()
     {
-        // Create related models
         $categorie = Categorie::factory()->create();
         $leverancier = Leverancier::factory()->create();
         $klant = Klant::factory()->create();
 
-        // Create a voorraad item
-        $voorraad = Voorraad::factory()->create([
-            'categorie_id' => $categorie->categorie_id,
-            'leverancier_id' => $leverancier->leverancier_id,
-            'klant_id' => $klant->klant_id,
+        $response = $this->post(route('voorraadbeheer.store'), [
+            'product_naam' => 'Test Product',
+            'hoeveelheid' => 10,
+            'categorie_id' => $categorie->id,
+            'leverancier_id' => $leverancier->id,
+            'klant_id' => $klant->id,
+            'ean' => '1234567890123',
         ]);
 
-        // Data to update
-        $updateData = [
-            'product_naam' => 'Updated Product Naam',
-            'hoeveelheid' => 99,
-            'categorie_id' => $categorie->categorie_id,
-            'leverancier_id' => $leverancier->leverancier_id,
-            'klant_id' => $klant->klant_id,
-        ];
+        $response->assertRedirect(route('voorraadbeheer.index'));
+        $response->assertSessionHas('success', 'Voorraadartikel succesvol aangemaakt.');
+        $this->assertDatabaseHas('voorraads', [
+            'product_naam' => 'Test Product',
+            'hoeveelheid' => 10,
+            'categorie_id' => $categorie->id,
+            'leverancier_id' => $leverancier->id,
+            'klant_id' => $klant->id,
+            'ean' => '1234567890123',
+        ]);
+    }
 
-        // Send a PUT request to update the voorraad item
-        $response = $this->put(route('voorraadbeheer.update', $voorraad->product_id), $updateData);
+    /** @test */
+    public function it_validates_the_store_request()
+    {
+        $response = $this->post(route('voorraadbeheer.store'), []);
 
-        // Assert the response status
-        $response->assertStatus(302);
-
-        // Assert the item was updated in the database
-        $this->assertDatabaseHas('producten', $updateData);
-
-        // Assert the success message is in the session
-        $response->assertSessionHas('success', 'Voorraadartikel succesvol bijgewerkt.');
+        $response->assertSessionHasErrors(['product_naam', 'hoeveelheid', 'categorie_id', 'leverancier_id', 'klant_id']);
     }
 }
