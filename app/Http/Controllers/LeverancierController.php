@@ -12,7 +12,7 @@ class LeverancierController extends Controller
      */
     public function index()
     {
-        //
+        return view('leverancier.index');
     }
 
     /**
