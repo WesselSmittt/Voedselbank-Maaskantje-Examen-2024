@@ -6,8 +6,6 @@
 <body>
     <h1>Nieuw Voedselpakket Aanmaken</h1>
 
-    <a href="{{ route('voedselpakket.index') }}"><p>Terug naar Voedselpakketten Overzicht</p></a>
-
     <form action="{{ route('voedselpakket.create.post') }}" method="POST">
         @csrf
         <label for="klant_id">Selecteer Klant:</label>
@@ -30,16 +28,24 @@
         </div>
     @endif
 
-    <form action="{{ route('voedselpakket.store') }}" method="POST">
+    <form method="POST" action="{{ route('voedselpakket.store') }}">
         @csrf
-        <input type="hidden" name="klant_id" value="{{ isset($selectedKlant) ? $selectedKlant->id : '' }}">
+
+        <label for="klant_id">Klant:</label>
+        <select name="klant_id" id="klant_id" class="form-control" required>
+            @foreach ($klanten as $klant)
+                <option value="{{ $klant->id }}">{{ $klant->voornaam }} {{ $klant->achternaam }}</option>
+            @endforeach
+        </select>
+        <br><br>
 
         <label for="samenstelling_datum">Datum van Samenstelling:</label>
-        <input type="date" name="samenstelling_datum" required>
+        <input type="date" name="samenstelling_datum" id="samenstelling_datum" required>
+        <br><br>
 
         <label for="uitgifte_datum">Datum van Uitgave:</label>
-        <input type="date" name="uitgifte_datum" required>
-
+        <input type="date" name="uitgifte_datum" id="uitgifte_datum" required>
+        <br><br>
         <label for="product_id">Select Product:</label>
 <select name="product_id" id="product_id" class="form-control" required>
     <option value="">Select a product</option>
@@ -49,5 +55,8 @@
         </option>
     @endforeach
 </select>
+
+        <button type="submit">Opslaan</button>
+    </form>
 </body>
 </html>
