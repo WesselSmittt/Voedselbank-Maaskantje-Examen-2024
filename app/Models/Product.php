@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
+    use HasFactory;
     protected $table = 'producten';
 
     protected $fillable = [
@@ -15,8 +17,7 @@ class Product extends Model
         'ean',
         'hoeveelheid',
         'leverancier_id',
-        'klant_id',
-    ];
+        ];
 
     public $timestamps = false;
 
@@ -30,13 +31,8 @@ class Product extends Model
         return $this->belongsTo(Leverancier::class, 'leverancier_id');
     }
 
-    public function klanten()
-    {
-        return $this->hasMany(Klant::class, 'id', 'klant_id');
-    }
-
     public function voedselPakketten()
     {
-        return $this->hasMany(VoedselPakket::class, 'product_id');
+        return $this->hasMany(VoedselPakket::class, 'product_voedselpakket', 'product_id', 'voedselpakket_id');
     }
 }

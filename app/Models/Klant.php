@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Klant extends Model
 {
+    use HasFactory;
+
     protected $table = 'klanten';
 
     protected $fillable = [
-        'voornaam', 
         'achternaam',
         'adres',
         'telefoon',
@@ -20,21 +21,15 @@ class Klant extends Model
         'babys',
     ];
 
-    public $timestamps = false;
+    public $timestamps = false; // Disable timestamps
 
-    public function producten()
+    public function voedselpakket()
     {
-        return $this->hasMany(Product::class, 'klant_id');
+        return $this->hasMany(Voedselpakket::class, 'klant_id');
     }
 
     public function specialeBehoeften()
     {
         return $this->belongsToMany(SpecialeBehoefte::class, 'klant_speciale_behoeften', 'klant_id', 'behoefte_id');
     }
-
-    public function voedselPakketten()
-    {
-        return $this->hasMany(VoedselPakket::class, 'klant_id');
-    }
 }
-

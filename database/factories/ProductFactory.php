@@ -20,8 +20,7 @@ class ProductFactory extends Factory
             'categorie_id' => Categorie::factory(),
             'ean' => $this->faker->unique()->ean13(),
             'hoeveelheid' => $this->faker->numberBetween(1, 100),
-            'leverancier_id' => Leverancier::factory(),
-            'klant_id' => Klant::factory(),
+            'leverancier_id' => Leverancier::factory()
         ];
     }
 }

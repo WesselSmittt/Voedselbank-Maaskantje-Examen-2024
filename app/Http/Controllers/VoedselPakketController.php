@@ -12,7 +12,7 @@ class VoedselPakketController extends Controller
     // Weergave van het overzicht van voedselpakketten
     public function index()
     {
-        $voedselpakketten = VoedselPakket::with('klant')->get();
+        $voedselpakketten = VoedselPakket::with('product')->get();
         return view('voedselpakket.index', compact('voedselpakketten'));
     }
 
@@ -32,6 +32,7 @@ class VoedselPakketController extends Controller
             'samenstelling_datum' => 'required|date',
             'uitgifte_datum' => 'required|date',
             'product_id' => 'required|exists:producten,id',
+            'klant_id' => 'required|exists:klanten,id', // Add klant_id to the validation rules
         ]);
 
         // Create voedsel_pakket
@@ -58,5 +59,40 @@ $voedselpakketten = VoedselPakket::whereHas('klant', function ($query) use ($sea
     {
         $voedselpakket = VoedselPakket::findOrFail($id);
         return view('voedselpakket.show', compact('voedselpakket'));
+    }
+
+    public function destroy($id)
+    {
+        $voedselpakket = VoedselPakket::findOrFail($id);
+        
+        // Perform authorization check if necessary
+        
+        $voedselpakket->delete();
+        
+        return redirect()->route('voedselpakket.index')->with('success', 'Voedselpakket successfully deleted.');
+    }
+
+    public function edit($id)
+    {
+        $voedselpakket = VoedselPakket::findOrFail($id);
+        $products = Product::all(); // Fetch all products from the database
+        
+        // Haal eventueel extra data op die nodig is voor het formulier
+        
+        return view('voedselpakket.edit', compact('voedselpakket', 'products'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'samenstelling_datum' => 'required|date',
+            'uitgifte_datum' => 'required|date',
+            'product_id' => 'required|exists:producten,id', // Validatie voor het product
+        ]);
+        
+        $voedselpakket = VoedselPakket::findOrFail($id);
+        $voedselpakket->update($validatedData);
+        
+        return redirect()->route('voedselpakket.index')->with('success', 'Voedselpakket succesvol bijgewerkt.');
     }
 }

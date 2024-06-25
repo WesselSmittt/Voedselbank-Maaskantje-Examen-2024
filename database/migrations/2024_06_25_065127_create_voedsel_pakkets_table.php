@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date('uitgifte_datum')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('producten');
+            $table->unsignedBigInteger('klant_id')->nullable();
+            $table->foreign('klant_id')->references('id')->on('klanten');
         });
     }
 

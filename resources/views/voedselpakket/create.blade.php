@@ -10,9 +10,9 @@
         @csrf
 
         <label for="klant_id">Klant:</label>
-        <select name="klant_id" id="klant_id">
+        <select name="klant_id" id="klant_id" class="form-control" required>
             @foreach ($klanten as $klant)
-                <option value="{{ $klant->klant_id }}">{{ $klant->achternaam }}</option>
+                <option value="{{ $klant->id }}">{{ klant->voornaam }} {{ klant->achternaam }}</option>
             @endforeach
         </select>
         <br><br>
@@ -24,15 +24,12 @@
         <label for="uitgifte_datum">Datum van Uitgave:</label>
         <input type="date" name="uitgifte_datum" id="uitgifte_datum" required>
         <br><br>
-        <label for="product_id">Select Product:</label>
-<select name="product_id" id="product_id" class="form-control" required>
-    <option value="">Select a product</option>
-    @foreach ($products as $product)
-        <option value="{{ $product->id }}" data-stock="{{ $product->hoeveelheid }}">
-            {{ $product->product_naam }} (In Stock: {{ $product->hoeveelheid }})
-        </option>
-    @endforeach
-</select>
+        <label for="product_id">Producten:</label>
+            <select name="product_id[]" multiple required>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                @endforeach
+            </select>
 
         <button type="submit">Opslaan</button>
     </form>

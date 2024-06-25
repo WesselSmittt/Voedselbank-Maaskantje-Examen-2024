@@ -29,9 +29,15 @@
         }
         .btn-green {
             background-color: green;
+            text-decoration: none; 
         }
         .btn-red {
             background-color: red;
+            text-decoration: none; 
+        }
+        .btn-blue {
+            background-color: blue;
+            text-decoration: none; 
         }
     </style>
 </head>
@@ -62,14 +68,19 @@
         <tbody>
         @foreach ($voedselpakketten as $voedselpakket)
     <tr>
-    <td>{{ optional(optional($voedselpakket)->klant)->achternaam }}</td>
+    <td>{{ $voedselpakket->klant->voornaam }} {{ $voedselpakket->klant->achternaam }}</td>
         <td>{{ $voedselpakket->id }}</td>
         <td>{{ $voedselpakket->samenstelling_datum }}</td>
         <td>{{ $voedselpakket->uitgifte_datum }}</td>
         <td>
-            <a href="{{ route('voedselpakket.show', ['id' => $voedselpakket->id]) }}">Bekijk voedselpakket</a>
+            <a href="{{ route('voedselpakket.show', ['id' => $voedselpakket->id]) }}" class="btn btn-green">Bekijk voedselpakket</a>
             @if (strtotime($voedselpakket->uitgifte_datum) > strtotime('today'))
-                <button class="btn btn-red" onclick="alert('Voedselpakket annuleren')">Annuleren</button>
+            <form action="{{ route('voedselpakket.destroy', ['id' => $voedselpakket->id]) }}" method="POST" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-red" onclick="return confirm('Are you sure you want to delete this voedselpakket?')">Annuleren</button>
+            </form>
+            <a href="{{ route('voedselpakket.edit', ['id' => $voedselpakket->id]) }}" class="btn btn-blue">Wijzigen</a>
             @endif
         </td>
     </tr>

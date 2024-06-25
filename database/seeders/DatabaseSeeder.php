@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\Voedselpakket;
 use App\Models\Product;
 use App\Models\Leverancier;
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Create 5 categories
         \App\Models\Categorie::factory(5)->create();

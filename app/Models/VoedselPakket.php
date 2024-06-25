@@ -7,20 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class VoedselPakket extends Model
 {
+    use HasFactory;
+
     protected $table = 'voedsel_pakkets';
 
     protected $fillable = [
         'samenstelling_datum',
         'uitgifte_datum',
         'product_id',
-        'klant_id',  // Assuming there's a klant_id in this table
+        'klant_id'
     ];
 
     public $timestamps = false;
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsToMany(Product::class, 'product_voedselpakket', 'voedselpakket_id', 'product_id');
     }
 
     public function pakketDetails()
@@ -32,5 +34,6 @@ class VoedselPakket extends Model
     {
         return $this->belongsTo(Klant::class, 'klant_id');
     }
+
 }
 

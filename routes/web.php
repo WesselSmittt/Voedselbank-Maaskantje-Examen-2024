@@ -38,6 +38,15 @@ Route::get('/voedselpakketten/search', [VoedselPakketController::class, 'search'
 // Route voor het weergeven van details van een voedselpakket
 Route::get('/voedselpakketten/{id}', [VoedselPakketController::class, 'show'])->name('voedselpakket.show');
 
+// Route voor het verwijderen van een voedselpakket
+Route::delete('/voedselpakket/{id}', [VoedselPakketController::class, 'destroy'])->name('voedselpakket.destroy');
+
+// Route voor het aanpassen van een voedselpakket
+Route::get('/voedselpakket/{id}/edit', [VoedselPakketController::class, 'edit'])->name('voedselpakket.edit');
+
+// Route voor het updaten van een voedselpakket
+Route::put('/voedselpakket/{id}', [VoedselPakketController::class, 'update'])->name('voedselpakket.update');
+
 
 
 Route::middleware('auth')->group(function () {
