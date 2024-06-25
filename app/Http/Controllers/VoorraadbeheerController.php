@@ -12,12 +12,20 @@ use Illuminate\Support\Facades\Log;
 class VoorraadbeheerController extends Controller
 {
     // Toont een lijst van alle voorraadartikelen
-    public function index()
+    public function index(Request $request)
     {
+        // Haalt de zoekterm op uit de request
+        $search = $request->input('search');
+
         // Haalt alle voorraadartikelen op, inclusief gerelateerde categorie, leverancier en klant
-        $producten = Voorraad::with(['categorie', 'leverancier', 'klant'])->get();
+        $producten = Voorraad::with(['categorie', 'leverancier', 'klant'])
+            ->when($search, function ($query, $search) {
+                return $query->where('ean', 'like', "%{$search}%");
+            })
+            ->get();
+
         // Geeft de index view terug met de opgehaalde producten
-        return view('voorraadbeheer.index', compact('producten'));
+        return view('voorraadbeheer.index', compact('producten', 'search'));
     }
 
     // Toont het formulier voor het aanmaken van een nieuw voorraadartikel
@@ -129,6 +137,21 @@ class VoorraadbeheerController extends Controller
             Log::error('Voorraad data: ' . json_encode($voorraad->toArray()));
 
             return back()->withErrors('Er is een fout opgetreden bij het bijwerken van het voorraadartikel.');
+        }
+    }
+
+    // Verwijdert een specifiek voorraadartikel uit de database
+    public function destroy(Voorraad $voorraad)
+    {
+        try {
+            // Verwijdert het voorraadartikel
+            $voorraad->delete();
+            // Redirect naar de index pagina met een succesmelding
+            return redirect()->route('voorraadbeheer.index')->with('success', 'Voorraadartikel succesvol verwijderd.');
+        } catch (\Exception $e) {
+            // Logt de fout en geeft een foutmelding terug
+            Log::error('Fout bij het verwijderen van voorraadartikel: ' . $e->getMessage());
+            return back()->withErrors('Er is een fout opgetreden bij het verwijderen van het voorraadartikel.');
         }
     }
 }
