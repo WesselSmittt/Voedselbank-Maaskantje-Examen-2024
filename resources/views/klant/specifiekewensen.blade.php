@@ -16,9 +16,7 @@
                     <tbody>
                         @foreach ($specialeBehoeften as $behoefte)
                             <tr>
-                                <td>{{ $behoefte->id }}</td>
-                                <td>{{ $behoefte->naam }}</td>
-                                <td>{{ $behoefte->omschrijving }}</td>
+                             
                                 <!-- Voeg meer cellen toe indien nodig -->
                             </tr>
                         @endforeach

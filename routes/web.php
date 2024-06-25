@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KlantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SpecialeBehoefteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/klant/{id}/edit', [KlantController::class, 'edit'])->name('klant.edit');
     Route::patch('/klant/{id}', [KlantController::class, 'update'])->name('klant.update');
     Route::delete('/klant/{id}', [KlantController::class, 'destroy'])->name('klant.delete');
+    Route::get('/specifiekewensen', [SpecialeBehoefteController::class, 'show'])->name('specifiekewensen');
 });
 
 require __DIR__.'/auth.php';
