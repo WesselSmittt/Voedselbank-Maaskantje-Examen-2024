@@ -10,6 +10,18 @@
             {{ session('error') }}
         </div>
     @endif
+
+    @if ($errors->any())
+    <div class="flex justify-center items-center">
+        <div class="bg-red-500 text-white font-semibold p-4 mt-4 rounded-lg max-w-2xl mx-auto">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
     
 
     <div class="py-12">

@@ -11,13 +11,14 @@ class LeverancierController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index()
-     {
-        // Haal alle leveranciers op uit de database
-         $leveranciers = Leverancier::all(); // Haalt alle leveranciers op uit de database
-     
-         return view('leverancier.index', compact('leveranciers')); // Stuurt de data naar de view
-     }
+    public function index()
+    {
+        // Ophaal leveranciers gesorteerd op 'volgende_levering' in oplopende volgorde
+        $leveranciers = Leverancier::orderBy('volgende_levering', 'asc')->get();
+    
+        // Retourneer de view met de gesorteerde leveranciers
+        return view('leverancier.index', compact('leveranciers'));
+    }
 
     public function show($id)
     {
@@ -37,7 +38,7 @@ class LeverancierController extends Controller
     {
         // Valideer de data die binnenkomt
         $validatedData = $request->validate([
-            'bedrijfsnaam' => 'required|unique:leveranciers|max:255',
+            'bedrijfsnaam' => 'required',
             'contactpersoon' => 'required|max:255',
             'telefoon' => 'required|numeric',
             'volgende_levering' => 'required|date|after_or_equal:today',
@@ -87,7 +88,7 @@ class LeverancierController extends Controller
         $leverancier->save();
     
     
-        return redirect()->route('leveranciers.index')->with('success', 'Leverancier succesvol bijgewerkt.');
+        return redirect()->route('leverancier.index')->with('success', 'Leverancier succesvol bijgewerkt.');
     }
 
     public function destroy($id)
