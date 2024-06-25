@@ -94,30 +94,20 @@ class KlantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function blokkeren(Request $request, $klant_id)
-    {
-        $klant = Klant::findOrFail($klant_id);
-        // Implement your blocking logic here
-        // For example, setting a 'blocked' attribute to true
-        $klant->blocked = true;
-        $klant->save();
 
-        return redirect()->route('klantoverzicht')->with('success', 'Klant succesvol geblokkeerd.');
-    }
 
-    public function herstellen($klant_id)
-    {
-        $klant = Klant::findOrFail($klant_id);
-        // Implementeer je deblokkeer logica hier
-        // Bijvoorbeeld, het instellen van een 'blocked' attribuut naar false
-        $klant->blocked = false;
-        $klant->save();
-
-        return redirect()->route('klantoverzicht')->with('success', 'Klant succesvol hersteld.');
-    }
     
-     public function destroy(Klant $klant)
+
+    
+    public function destroy($klantId)
     {
-        //
+        $klant = Klant::find($klantId);
+    
+        if ($klant === null) {
+            return redirect()->back()->withErrors(['message' => 'Klant not found.']);
+        }
+    
+        $klant->delete();
+        return redirect()->route('klantoverzicht');
     }
 }

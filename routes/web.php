@@ -24,8 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/klant/store', [KlantController::class, 'store'])->name('klant.store');
     Route::get('/klant/{id}/edit', [KlantController::class, 'edit'])->name('klant.edit');
     Route::patch('/klant/{id}', [KlantController::class, 'update'])->name('klant.update');
-    Route::put('/klanten/blokkeren/{id}', [App\Http\Controllers\KlantController::class, 'blokkeren'])->name('klanten.blokkeren');
-    Route::post('/klanten/herstellen', [App\Http\Controllers\KlantController::class, 'herstellen'])->name('klanten.herstellen');
+    Route::delete('/klant/{id}', [KlantController::class, 'destroy'])->name('klant.delete');
 });
 
 require __DIR__.'/auth.php';
