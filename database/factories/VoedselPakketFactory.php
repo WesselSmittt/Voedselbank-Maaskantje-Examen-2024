@@ -2,22 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Voedselpakket;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\VoedselPakket>
- */
-class VoedselPakketFactory extends Factory
+class VoedselpakketFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Voedselpakket::class;
+
+    public function definition()
     {
         return [
-            //
+            'samenstelling_datum' => $this->faker->date(),
+            'uitgifte_datum' => $this->faker->optional()->date(),
+            'product_id' => Product::factory(),
         ];
     }
 }
