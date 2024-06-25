@@ -43,6 +43,13 @@ class VoorraadbeheerController extends Controller
             'klant_id' => 'required|exists:klanten,klant_id',
         ]);
 
+        // Controleert of het product al bestaat
+        $bestaatAl = Voorraad::where('product_naam', $request->input('product_naam'))->exists();
+
+        if ($bestaatAl) {
+            return back()->withErrors('Product bestaat al.');
+        }
+
         // Genereert een EAN-code als deze niet is ingevoerd
         $ean = $request->input('ean') ?: $this->generateEAN();
 
@@ -85,8 +92,10 @@ class VoorraadbeheerController extends Controller
     // Toont het formulier voor het bewerken van een bestaand voorraadartikel
     public function edit(Voorraad $voorraad)
     {
-        // Geeft de edit view terug met het specifieke voorraadartikel
-        return view('voorraadbeheer.edit', compact('voorraad'));
+        $categories = Categorie::all();
+        $leveranciers = Leverancier::all();
+        $klanten = Klant::all();
+        return view('voorraadbeheer.edit', compact('voorraad', 'categories', 'leveranciers', 'klanten'));
     }
 
     // Werkt een bestaand voorraadartikel bij in de database
