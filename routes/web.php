@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leverancier.index');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('Medewerker')->group(function () {
     Route::get('/voorraad', [VoorraadbeheerController::class, 'index'])->name('voorraadbeheer.index');
     Route::get('/voorraad/create', [VoorraadbeheerController::class, 'create'])->name('voorraadbeheer.create');
     Route::post('/voorraad', [VoorraadbeheerController::class, 'store'])->name('voorraadbeheer.store');
