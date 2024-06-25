@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 
+    //succes message
     @if(session('success'))
         <div class="flex justify-center items-center" id="successMessage">
             <div class="bg-green-500 text-white font-semibold p-4 mt-4 rounded-lg max-w-2xl mx-auto">
@@ -13,6 +14,7 @@
         </div>
     @endif
 
+    //error message
     @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -63,6 +65,7 @@
     </div>
 </x-app-layout>
 
+// Script to hide the success message after 3 seconds
 <script>
     setTimeout(function() {
         var successMessage = document.getElementById('successMessage');
