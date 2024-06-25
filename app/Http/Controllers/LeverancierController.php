@@ -71,23 +71,11 @@ class LeverancierController extends Controller
             // Voeg hier meer aangepaste foutberichten toe
         ]);
     
-        $leverancier = new Leverancier();
-        $leverancier->bedrijfsnaam = $validatedData['bedrijfsnaam'];
-        $leverancier->contactpersoon = $validatedData['contactpersoon'];
-        $leverancier->telefoon = $validatedData['telefoon'];
-        $leverancier->volgende_levering = $validatedData['volgende_levering'];
-        $leverancier->straatnaam = $validatedData['straatnaam'];
-        $leverancier->huisnummer = $validatedData['huisnummer'];
-        $leverancier->postcode = $validatedData['postcode'];
-        $leverancier->land = $validatedData['land'];
-        $leverancier->email = $validatedData['email'];
-        
+        $leverancier = Leverancier::findOrFail($id); // Zoek de leverancier of geef een 404 fout
 
-        // Vul de rest van de velden in
-    
-        $leverancier->save();
+        $leverancier->update($validatedData);
 
-        session()->flash('success', 'Leverancier succesvol gewijzigd.');
+        session()->flash('success', 'Leverancier succesvol bijgewerkt.');
 
     
     
