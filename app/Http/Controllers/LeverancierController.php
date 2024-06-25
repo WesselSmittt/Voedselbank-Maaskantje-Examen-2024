@@ -86,6 +86,9 @@ class LeverancierController extends Controller
         // Vul de rest van de velden in
     
         $leverancier->save();
+
+        session()->flash('success', 'Leverancier succesvol gewijzigd.');
+
     
     
         return redirect()->route('leverancier.index')->with('success', 'Leverancier succesvol bijgewerkt.');
@@ -157,7 +160,10 @@ class LeverancierController extends Controller
         // Vul de rest van de velden in
     
         $leverancier->save();
-    
+
+        session()->flash('success', 'Leverancier succesvol toegevoegd.');
+
+
         return redirect()->route('leverancier.index')->with('success', 'Leverancier succesvol toegevoegd.');
     }
 

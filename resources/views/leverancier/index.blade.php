@@ -4,6 +4,15 @@
             {{ __('Overzicht leveranciers') }}
         </h2>
     </x-slot>
+
+    @if(session('success'))
+        <div class="flex justify-center items-center" id="successMessage">
+            <div class="bg-green-500 text-white font-semibold p-4 mt-4 rounded-lg max-w-2xl mx-auto">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+
     @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -53,3 +62,12 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    setTimeout(function() {
+        var successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            successMessage.style.display = 'none';
+        }
+    }, 3000);
+</script>

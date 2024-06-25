@@ -5,6 +5,14 @@
         </h2>
     </x-slot>
 
+    @if(session('success'))
+        <div class="flex justify-center items-center">
+            <div class="bg-green-500 text-white font-semibold p-4 mt-4 rounded-lg max-w-2xl mx-auto">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+
     @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
