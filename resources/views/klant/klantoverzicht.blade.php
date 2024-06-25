@@ -10,6 +10,15 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="px-4 py-2">Klantoverzicht</h1>
                     <td class="px-4 py-2"><a href="{{ route('klanttoevoegen') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Klant Toevoegen</a></td>
+                    <div class="py-4">
+                        <form action="{{ route('klantoverzicht') }}" method="GET">
+                            <input type="text" name="zoekterm" placeholder="Zoek klanten..." class="px-4 py-2 border rounded" value="{{ request('zoekterm') }}">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Zoeken</button>
+                        </form>
+                        <div class="py-4">
+                            <a href="{{ route('klantoverzicht') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Terug naar overzicht</a>
+                        </div>
+                    </div>
                     <table>
                         <thead>
                             <tr>

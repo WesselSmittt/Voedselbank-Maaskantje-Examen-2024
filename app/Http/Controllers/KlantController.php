@@ -10,10 +10,22 @@ class KlantController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $klanten = Klant::all();
-        return view('klant.klantoverzicht', compact('klanten'));    }
+        $zoekterm = $request->input('zoekterm');
+
+        if (!empty($zoekterm)) {
+            // Voer de zoekopdracht uit als er een zoekterm is.
+            $klanten = Klant::where('voornaam', 'like', '%' . $zoekterm . '%')
+                             ->orWhere('achternaam', 'like', '%' . $zoekterm . '%')
+                             ->get();
+        } else {
+            // Haal alle klanten op als er geen zoekterm is.
+            $klanten = Klant::all();
+        }
+
+        return view('klant.klantoverzicht', compact('klanten'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -48,8 +60,10 @@ class KlantController extends Controller
      */
     public function show(Klant $klant)
     {
-        //
+        
     }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
