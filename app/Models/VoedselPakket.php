@@ -22,7 +22,7 @@ class VoedselPakket extends Model
 
     public function product()
     {
-        return $this->belongsToMany(Product::class, 'product_voedselpakket', 'voedselpakket_id', 'product_id');
+        return $this->belongsToMany(Product::class);
     }
 
     public function pakketDetails()

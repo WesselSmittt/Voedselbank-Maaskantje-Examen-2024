@@ -33,6 +33,6 @@ class Product extends Model
 
     public function voedselPakketten()
     {
-        return $this->hasMany(VoedselPakket::class, 'product_voedselpakket', 'product_id', 'voedselpakket_id');
+        return $this->hasMany(VoedselPakket::class, 'id', 'pakket_id');
     }
 }
