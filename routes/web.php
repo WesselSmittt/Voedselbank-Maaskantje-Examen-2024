@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'directie')->group(function () {
     Route::get('/klantoverzicht', [KlantController::class, 'index'])->name('klantoverzicht');
     Route::get('/klanttoevoegen', [KlantController::class, 'create'])->name('klanttoevoegen');
     Route::post('/klant/store', [KlantController::class, 'store'])->name('klant.store');
