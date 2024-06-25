@@ -44,4 +44,15 @@ class LeverancierController extends Controller
         return redirect()->route('leverancier.index');
     }
 
+    public function create()
+    {
+        return view('leverancier.create');
+    }
+
+    public function store(Request $request)
+    {
+        $leverancier = Leverancier::create($request->all());
+        return redirect()->route('leverancier.show', $leverancier->id);
+    }
+
 }

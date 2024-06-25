@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/leveranciers/{id}/edit', [LeverancierController::class, 'edit'])->name('leverancier.edit');
     Route::put('/leveranciers/{id}', [LeverancierController::class, 'update'])->name('leverancier.update');
     Route::delete('/leveranciers/{id}', [LeverancierController::class, 'destroy'])->name('leverancier.destroy');
+    Route::get('/leverancier/create', [LeverancierController::class, 'create'])->name('leverancier.create');
+    Route::post('/leveranciers', [LeverancierController::class, 'store'])->name('leverancier.store');
 });
 
 require __DIR__.'/auth.php';

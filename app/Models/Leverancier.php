@@ -17,6 +17,8 @@ class Leverancier extends Model
         'land',
         'contactpersoon',
         'email',
+        'telefoon',
+        'volgende_levering'
     ];
     
 }

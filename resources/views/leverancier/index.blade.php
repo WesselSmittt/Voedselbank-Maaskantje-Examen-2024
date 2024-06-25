@@ -9,7 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <table class="table-auto w-full">
+                <a href="{{ route('leverancier.create') }}" style="background-color: #00D656; color: #FFFFFF;" class="font-bold py-2 px-4 rounded">Toevoegen</a>   
+                </div>                 
+                <table class="table-auto w-full">
                         <thead>
                             <tr>
                                 <th class="px-4 py-2">Bedrijfsnaam</th>
