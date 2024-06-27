@@ -114,7 +114,6 @@ class VoorraadbeheerController extends Controller
             'hoeveelheid' => 'required|numeric',
             'categorie_id' => 'required|exists:categories,categorie_id',
             'leverancier_id' => 'required|exists:leveranciers,leverancier_id',
-            'klant_id' => 'required|exists:klanten,klant_id',
         ]);
 
         try {
