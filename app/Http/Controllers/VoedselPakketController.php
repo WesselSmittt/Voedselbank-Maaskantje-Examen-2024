@@ -25,7 +25,7 @@ class VoedselPakketController extends Controller
 
         if ($request->isMethod('post')) {
             $selectedKlant = Klant::find($request->input('klant_id'));
-        }    
+        }
 
         return view('voedselpakket.create', compact('klanten', 'products', 'selectedKlant'));;
     }
