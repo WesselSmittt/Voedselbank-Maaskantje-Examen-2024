@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('producten', function (Blueprint $table) {
-            $table->id('product_id');
+            $table->id('id');
             $table->string('product_naam', 100)->unique();
             $table->unsignedBigInteger('categorie_id');
-            $table->foreign('categorie_id')->references('categorie_id')->on('categories');
+            $table->foreign('categorie_id')->references('id')->on('categories');
             $table->string('ean', 13)->unique();
             $table->integer('hoeveelheid')->default(0);
             $table->unsignedBigInteger('leverancier_id')->nullable();

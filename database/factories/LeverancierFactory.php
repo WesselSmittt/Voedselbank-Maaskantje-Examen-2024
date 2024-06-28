@@ -2,30 +2,25 @@
 
 namespace Database\Factories;
 
+use App\Models\Leverancier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Leverancier>
- */
 class LeverancierFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Leverancier::class;
+
+    public function definition()
     {
         return [
-            'bedrijfsnaam' => $this->faker->company,
-            'straatnaam' => $this->faker->streetName,
-            'huisnummer' => $this->faker->buildingNumber,
-            'postcode' => $this->faker->postcode,
-            'land' => $this->faker->country,
-            'contactpersoon' => $this->faker->name,
-            'email' => $this->faker->safeEmail,
-            'telefoon' => $this->faker->phoneNumber,
-            'volgende_levering' => $this->faker->date,
+            'bedrijfsnaam' => $this->faker->company(),
+            'straatnaam' => $this->faker->streetName(),
+            'huisnummer' => $this->faker->buildingNumber(),
+            'postcode' => $this->faker->postcode(),
+            'land' => $this->faker->country(),
+            'contactpersoon' => $this->faker->name(),
+            'email' => $this->faker->unique()->companyEmail(),
+            'telefoon' => $this->faker->phoneNumber(),
+            'volgende_levering' => $this->faker->optional()->date(),
         ];
     }
 }
