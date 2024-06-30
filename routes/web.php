@@ -7,6 +7,7 @@ use App\Http\Controllers\LeverancierController;
 use App\Http\Controllers\CategorieController;
 
 
+use App\Http\Controllers\VoorraadbeheerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,29 +22,29 @@ Route::middleware('auth', 'Medewerker')->group(function () {
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('categories', CategorieController::class);
-    
+
     // Route voor het weergeven van het overzicht van voedselpakketten
     Route::get('/voedselpakketten', [VoedselPakketController::class, 'index'])->name('voedselpakket.index');
-    
+
     // Route voor het weergeven van het formulier om een nieuw voedselpakket aan te maken
     Route::get('/voedselpakketten/create', [VoedselPakketController::class, 'create'])->name('voedselpakket.create');
     Route::post('/voedselpakket/create', [VoedselPakketController::class, 'create'])->name('voedselpakket.create.post');
-    
+
     // Route voor het opslaan van een nieuw voedselpakket
     Route::post('/voedselpakketten', [VoedselPakketController::class, 'store'])->name('voedselpakket.store');
-    
+
     // Route voor het zoeken op klantnaam in voedselpakketten
     Route::get('/voedselpakketten/search', [VoedselPakketController::class, 'search'])->name('voedselpakket.search');
-    
+
     // Route voor het weergeven van details van een voedselpakket
     Route::get('/voedselpakketten/{id}', [VoedselPakketController::class, 'show'])->name('voedselpakket.show');
-    
+
     // Route voor het verwijderen van een voedselpakket
     Route::delete('/voedselpakket/{id}', [VoedselPakketController::class, 'destroy'])->name('voedselpakket.destroy');
-    
+
     // Route voor het aanpassen van een voedselpakket
     Route::get('/voedselpakket/{id}/edit', [VoedselPakketController::class, 'edit'])->name('voedselpakket.edit');
-    
+
     // Route voor het updaten van een voedselpakket
     Route::put('/voedselpakket/{id}', [VoedselPakketController::class, 'update'])->name('voedselpakket.update');
 });
@@ -67,4 +68,17 @@ Route::middleware(['auth', 'directie'])->group(function () {
     Route::post('/leveranciers', [LeverancierController::class, 'store'])->name('leverancier.store');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('Medewerker')->group(function () {
+    Route::get('/voorraad', [VoorraadbeheerController::class, 'index'])->name('voorraadbeheer.index');
+    Route::get('/voorraad/create', [VoorraadbeheerController::class, 'create'])->name('voorraadbeheer.create');
+    Route::post('/voorraad', [VoorraadbeheerController::class, 'store'])->name('voorraadbeheer.store');
+    Route::get('/voorraad/{voorraad}/edit', [VoorraadbeheerController::class, 'edit'])->name('voorraadbeheer.edit');
+    Route::put('/voorraad/{voorraad}', [VoorraadbeheerController::class, 'update'])->name('voorraadbeheer.update');
+    Route::delete('/voorraad/{voorraad}', [VoorraadbeheerController::class, 'destroy'])->name('voorraadbeheer.destroy');
+});
+
+
+
+
+
+require __DIR__ . '/auth.php';

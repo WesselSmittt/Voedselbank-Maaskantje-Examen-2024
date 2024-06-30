@@ -29,4 +29,10 @@ class Leverancier extends Model
     {
         return $this->hasMany(Product::class, 'leverancier_id');
     }
+
+    protected $primaryKey = 'leverancier_id';
+
+    protected $fillable = [
+        'bedrijfsnaam', 'straatnaam', 'huisnummer', 'postcode', 'land', 'contactpersoon', 'email', 'telefoon', 'volgende_levering'
+    ];
 }
