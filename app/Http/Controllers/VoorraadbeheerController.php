@@ -22,6 +22,7 @@ class VoorraadbeheerController extends Controller
             ->when($search, function ($query, $search) {
                 return $query->where('ean', 'like', "%{$search}%");
             })
+            ->orderBy('id', 'desc') // Fetch records in descending order by 'id'
             ->get();
 
         // Geeft de index view terug met de opgehaalde producten
@@ -46,8 +47,8 @@ class VoorraadbeheerController extends Controller
         $request->validate([
             'product_naam' => 'required|string|max:255',
             'hoeveelheid' => 'required|numeric',
-            'categorie_id' => 'required|exists:categories,categorie_id',
-            'leverancier_id' => 'required|exists:leveranciers,leverancier_id',
+            'categorie_id' => 'required|exists:categories,id',
+            'leverancier_id' => 'required|exists:leveranciers,id',
         ]);
 
         // Controleert of het product al bestaat
@@ -112,8 +113,8 @@ class VoorraadbeheerController extends Controller
         $request->validate([
             'product_naam' => 'required|string|max:255',
             'hoeveelheid' => 'required|numeric',
-            'categorie_id' => 'required|exists:categories,categorie_id',
-            'leverancier_id' => 'required|exists:leveranciers,leverancier_id',
+            'categorie_id' => 'required|exists:categories,id',
+            'leverancier_id' => 'required|exists:leveranciers,id',
         ]);
 
         try {
@@ -144,8 +145,8 @@ class VoorraadbeheerController extends Controller
         try {
             // Verwijdert het voorraadartikel
             $voorraad->delete();
-            // Redirect naar de index pagina met een succesmelding
-            return redirect()->route('voorraadbeheer.index')->with('success', 'Voorraadartikel succesvol verwijderd.');
+            // Redirect naar de index pagina met een succesmelding in red color
+            return redirect()->route('voorraadbeheer.index')->with('delete_success', 'Voorraadartikel succesvol verwijderd.');
         } catch (\Exception $e) {
             // Logt de fout en geeft een foutmelding terug
             Log::error('Fout bij het verwijderen van voorraadartikel: ' . $e->getMessage());

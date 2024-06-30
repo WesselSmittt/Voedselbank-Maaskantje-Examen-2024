@@ -44,7 +44,7 @@
                             <label for="categorie_id" class="block text-sm font-medium text-gray-700">Categorie</label>
                             <select name="categorie_id" id="categorie_id" class="mt-1 block w-full" required>
                                 @foreach($categories as $category)
-                                <option value="{{ $category->categorie_id }}">{{ $category->categorie_naam }}</option>
+                                <option value="{{ $category->id }}">{{ $category->categorie_naam }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -53,7 +53,7 @@
                             <label for="leverancier_id" class="block text-sm font-medium text-gray-700">Leverancier</label>
                             <select name="leverancier_id" id="leverancier_id" class="mt-1 block w-full" required>
                                 @foreach($leveranciers as $leverancier)
-                                <option value="{{ $leverancier->leverancier_id }}">{{ $leverancier->bedrijfsnaam }}</option>
+                                <option value="{{ $leverancier->id }}">{{ $leverancier->bedrijfsnaam }}</option>
                                 @endforeach
                             </select>
                         </div>

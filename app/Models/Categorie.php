@@ -10,16 +10,15 @@ class Categorie extends Model
     use HasFactory;
 
     protected $table = 'categories';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
     protected $fillable = [
         'categorie_naam',
-        'categorie_id',
     ];
-
-    public $timestamps = false;
 
     public function producten()
     {
-        return $this->hasMany(Product::class, 'categorie_id');
+        return $this->hasMany(Voorraad::class, 'categorie_id');
     }
 }

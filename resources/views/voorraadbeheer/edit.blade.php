@@ -26,7 +26,7 @@
                     </div>
                     @endif
 
-                    <form method="POST" action="{{ route('voorraadbeheer.update', ['voorraad' => $voorraad->product_id]) }}">
+                    <form method="POST" action="{{ route('voorraadbeheer.update', ['voorraad' => $voorraad->id]) }}">
                         @csrf
                         @method('PUT')
 
@@ -44,7 +44,7 @@
                             <label for="categorie_id" class="block text-sm font-medium text-gray-700">Categorie</label>
                             <select name="categorie_id" id="categorie_id" class="mt-1 block w-full" required>
                                 @foreach($categories as $category)
-                                <option value="{{ $category->categorie_id }}" {{ $voorraad->categorie_id == $category->categorie_id ? 'selected' : '' }}>{{ $category->categorie_naam }}</option>
+                                <option value="{{ $category->id }}" {{ $voorraad->categorie_id == $category->id ? 'selected' : '' }}>{{ $category->categorie_naam }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -53,7 +53,7 @@
                             <label for="leverancier_id" class="block text-sm font-medium text-gray-700">Leverancier</label>
                             <select name="leverancier_id" id="leverancier_id" class="mt-1 block w-full" required>
                                 @foreach($leveranciers as $leverancier)
-                                <option value="{{ $leverancier->leverancier_id }}" {{ $voorraad->leverancier_id == $leverancier->leverancier_id ? 'selected' : '' }}>{{ $leverancier->bedrijfsnaam }}</option>
+                                <option value="{{ $leverancier->id }}" {{ $voorraad->leverancier_id == $leverancier->id ? 'selected' : '' }}>{{ $leverancier->bedrijfsnaam }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -15,6 +15,12 @@
                     </div>
                     @endif
 
+                    @if(session('delete_success'))
+                    <div class="mb-4 text-red-600">
+                        {{ session('delete_success') }}
+                    </div>
+                    @endif
+
                     @if ($errors->any())
                     <div class="mb-4">
                         <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
@@ -84,9 +90,9 @@
                                     <div class="text-sm text-gray-900">{{ $product->leverancier->bedrijfsnaam }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                    <a href="{{ route('voorraadbeheer.edit', ['voorraad' => $product->product_id]) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <a href="{{ route('voorraadbeheer.edit', ['voorraad' => $product->id]) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
 
-                                    <form action="{{ route('voorraadbeheer.destroy', ['voorraad' => $product->product_id]) }}" method="POST" class="inline-block">
+                                    <form action="{{ route('voorraadbeheer.destroy', ['voorraad' => $product->id]) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900 ml-4" onclick="return confirm('Weet je zeker dat je dit product wilt verwijderen?')">Delete</button>

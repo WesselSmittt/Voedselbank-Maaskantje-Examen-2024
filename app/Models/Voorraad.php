@@ -10,7 +10,7 @@ class Voorraad extends Model
     use HasFactory;
 
     protected $table = 'producten';
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -19,16 +19,16 @@ class Voorraad extends Model
 
     public function categorie()
     {
-        return $this->belongsTo(Categorie::class, 'categorie_id', 'categorie_id');
+        return $this->belongsTo(Categorie::class, 'categorie_id', 'id');
     }
 
     public function leverancier()
     {
-        return $this->belongsTo(Leverancier::class, 'leverancier_id', 'leverancier_id');
+        return $this->belongsTo(Leverancier::class, 'leverancier_id', 'id');
     }
 
     public function klant()
     {
-        return $this->belongsTo(Klant::class, 'klant_id', 'klant_id');
+        return $this->belongsTo(Klant::class, 'klant_id', 'id');
     }
 }

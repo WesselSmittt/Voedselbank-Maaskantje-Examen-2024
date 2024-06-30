@@ -10,6 +10,8 @@ class Leverancier extends Model
     use HasFactory;
 
     protected $table = 'leveranciers';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
     protected $fillable = [
         'bedrijfsnaam',
@@ -23,10 +25,8 @@ class Leverancier extends Model
         'volgende_levering'
     ];
 
-    public $timestamps = false; // Disable timestamps
-
     public function producten()
     {
-        return $this->hasMany(Product::class, 'leverancier_id');
+        return $this->hasMany(Voorraad::class, 'leverancier_id');
     }
 }
