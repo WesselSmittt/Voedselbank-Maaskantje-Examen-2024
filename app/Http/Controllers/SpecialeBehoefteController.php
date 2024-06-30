@@ -36,7 +36,8 @@ class SpecialeBehoefteController extends Controller
      */
     public function show(SpecialeBehoefte $specialeBehoefte)
     {
-        //
+        $specialeBehoeften = SpecialeBehoefte::all(); // Zorg ervoor dat je het model gebruikt om data op te halen
+        return view('specifiekewensen', compact('specialeBehoeften'));
     }
 
     /**

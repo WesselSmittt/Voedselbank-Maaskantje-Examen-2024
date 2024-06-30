@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KlantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoedselPakketController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,15 @@ Route::middleware(['auth', 'directie'])->group(function () {
     Route::delete('/leveranciers/{id}', [LeverancierController::class, 'destroy'])->name('leverancier.destroy');
     Route::get('/leverancier/create', [LeverancierController::class, 'create'])->name('leverancier.create');
     Route::post('/leveranciers', [LeverancierController::class, 'store'])->name('leverancier.store');
+});
+
+Route::middleware('auth', 'directie')->group(function () {
+    Route::get('/klantoverzicht', [KlantController::class, 'index'])->name('klantoverzicht');
+    Route::get('/klanttoevoegen', [KlantController::class, 'create'])->name('klanttoevoegen');
+    Route::post('/klant/store', [KlantController::class, 'store'])->name('klant.store');
+    Route::get('/klant/{id}/edit', [KlantController::class, 'edit'])->name('klant.edit');
+    Route::patch('/klant/{id}', [KlantController::class, 'update'])->name('klant.update');
+    Route::delete('/klant/{id}', [KlantController::class, 'destroy'])->name('klant.delete');
 });
 
 require __DIR__.'/auth.php';
