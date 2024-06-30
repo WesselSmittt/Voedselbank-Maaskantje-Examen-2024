@@ -10,6 +10,7 @@ class Klant extends Model
     use HasFactory;
 
     protected $table = 'klanten';
+    
 
     protected $fillable = [
         'achternaam',

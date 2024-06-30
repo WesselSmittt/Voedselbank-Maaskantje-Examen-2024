@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                <form action="{{ route('klant.update', ['id' => $klant->klant_id]) }}" method="post">
+                    <form action="{{ route('klant.update', ['id' => $klant->id]) }}" method="post">                        
                         @csrf
                         @method('PATCH')
                         <div class="mb-4">

@@ -46,10 +46,10 @@
                                     <td class="px-4 py-2">{{ $klant->kinderen }}</td>
                                     <td class="px-4 py-2">{{ $klant->babys }}</td>
                                     <td class="px-4 py-2">
-                                        <a href="{{ route('klant.edit', $klant->klant_id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                        <a href="{{ route('klant.edit', ['id' => $klant->id]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                                     </td>
                                     <td class="px-4 py-2">
-                                        <form action="{{ route('klant.delete', $klant->klant_id) }}" method="POST">
+                                        <form action="{{ route('klant.delete', ['id' => $klant->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('Weet je zeker dat je deze klant wilt verwijderen?')">Verwijderen</button>
