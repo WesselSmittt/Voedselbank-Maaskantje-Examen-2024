@@ -32,10 +32,4 @@ class Klant extends Model
     {
         return $this->belongsToMany(SpecialeBehoefte::class, 'klant_speciale_behoeften', 'klant_id', 'behoefte_id');
     }
-    protected $table = 'klanten';
-    protected $primaryKey = 'klant_id';
-
-    protected $fillable = [
-        'voornaam', 'achternaam', 'adres', 'telefoon', 'email', 'volwassenen', 'kinderen', 'babys'
-    ];
 }
