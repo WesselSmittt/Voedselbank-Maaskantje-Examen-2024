@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\CategoriesTableSeeder;
+use Database\Seeders\LeveranciersTableSeeder;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ProductenTableSeeder;
 use Illuminate\Support\Facades\DB;
 use Database\Seeders\RollenTableSeeder;
 use App\Models\Voedselpakket;
@@ -21,6 +24,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Call other seeders
+        $this->call(ProductenTableSeeder::class);
+        $this->call(LeveranciersTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(KlantenTableSeeder::class);
+        $this->call(RollenTableSeeder::class);
         // // Create 5 categories
         // \App\Models\Categorie::factory(5)->create();
 
@@ -42,7 +51,7 @@ class DatabaseSeeder extends Seeder
 
         // Create 30 pakket details
         \App\Models\PakketDetail::factory(30)->create();
-        
+
 
         // $this->call(RollenTableSeeder::class);
     }

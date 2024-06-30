@@ -13,6 +13,7 @@ class Categorie extends Model
 
     protected $fillable = [
         'categorie_naam',
+        'categorie_id',
     ];
 
     public $timestamps = false;
